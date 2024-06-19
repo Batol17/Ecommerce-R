@@ -1,6 +1,9 @@
 import React from 'react'
 
 function NavBar() {
+   const img= localStorage.getItem('img')
+   const name= localStorage.getItem('name')
+  
     
     return (
         <div>
@@ -9,8 +12,8 @@ function NavBar() {
                     {/* Avatar */}
                     <ul className='navbar-nav  w-100 d-flex flex-row-reverse text-white'>
                         <div className='border-dark'>
-                            <span className='pe-2'>Welcome John Doe 👋🏻</span>
-                            <img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" className="rounded-circle " style={{height:50}} alt="Avatar" />
+                            <span className='pe-2'>Welcome {name} 👋🏻</span>
+                            <img src={img} className="rounded-circle " style={{height:60}} alt="Avatar" />
                         </div>
                     </ul>
                 </div>

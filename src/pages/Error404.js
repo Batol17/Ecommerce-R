@@ -2,7 +2,11 @@ import React from 'react'
 
 function Error404() {
   return (
-    <div>Error404</div>
+    <div>
+      <h2 className='text-danger p-3'>
+      Page Not Found
+      </h2>
+    </div>
   )
 }
 

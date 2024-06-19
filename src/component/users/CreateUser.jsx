@@ -19,15 +19,7 @@ function CreateUser() {
     console.log(firstname, lastname, password, passwordConfirm, email);
     e.preventDefault();
     console.log("create");
-    let item = {
-      firstname: firstname,
-      lastname: lastname,
-      email: email,
-      password: password,
-      passwordConfirm: passwordConfirm,
-      role: role,
 
-    }
     const form = new FormData();
     form.append("firstname", firstname);
     form.append("lastname", lastname);
@@ -72,7 +64,7 @@ function CreateUser() {
                       <div className="col-md-6 mb-4">
                         <div data-mdb-input-init className="form-outline">
                           <label className="form-label" htmlFor="form3Example1">First name
-                            <span className='text-primary'>  *</span>
+                            <span className='text-danger'>  *</span>
                           </label>
 
                           <input type="text" id="form3Example1" className="form-control"
@@ -83,7 +75,7 @@ function CreateUser() {
                       <div className="col-md-6 mb-4">
                         <div data-mdb-input-init className="form-outline">
                           <label className="form-label" htmlFor="form3Example2">Last name
-                            <span className='text-primary'>  *</span>
+                            <span className='text-danger'>  *</span>
                           </label>
 
                           <input type="text" id="form3Example2" className="form-control"
@@ -95,7 +87,7 @@ function CreateUser() {
                     {/* Email input */}
                     <div data-mdb-input-init className="form-outline mb-4">
                       <label className="form-label" htmlFor="form3Example3">Email
-                        <span className='text-primary'>  *</span>
+                        <span className='text-danger'>  *</span>
                       </label>
 
                       <input type="email" id="form3Example3" className="form-control"

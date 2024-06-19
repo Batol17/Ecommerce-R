@@ -40,14 +40,7 @@ function Sidebar() {
                                 </i>
                             </a>
                         </li>
-                        <li className='py-2 list-group-item'>
-                            <a href="" className="nav-link px-1">
-                                <i className="bi-heart">
-                                    <span className="ms-1 ps-2 d-none d-sm-inline">Dashboard</span>
-                                    
-                                </i>
-                            </a>
-                        </li>
+                      
                     </ul>
                 </div>
             </div>

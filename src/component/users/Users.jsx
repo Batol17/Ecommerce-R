@@ -1,67 +1,90 @@
 
 import React, { useEffect, useState } from 'react'
 import axiosIns from '../../axios/axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { IoMdPersonAdd } from "react-icons/io";
 import { BiShow } from "react-icons/bi";
 import { RxUpdate } from "react-icons/rx";
-function Users() {
-  const [usersData, setUsersData] = useState([])
+import imgUrl from '../../imgUrl/imgURL';
+import Alert from "./Alert.jsx"
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('');
-  const [firstname, setFirstname] = useState('')
-  const [lastname, setLastname] = useState('');
-  const [role, setRole] = useState('');
-  const [error, setError] = useState('')
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+
+
+function Users() {
+
+
+
+  const [usersData, setUsersData] = useState([])
+  const [error, setError] = useState([])
+  const [imgurl, setImgurl] = useState('')
+  const [img, setImg] = useState('');
+  const navigate = useNavigate()
 
   const token = localStorage.getItem('token')
+
+
+
+  useEffect(() => {
+    getusers();
+  }, [])
+
   const getusers = async () => {
     try {
-      const response = await axiosIns.get('api/users?page=1&limit=10', {
+      const response = await axiosIns.get('api/users?page=1&limit=100', {
         headers: { Authorization: `Bearer ${token} ` }
       })
       setUsersData(response.data.data)
+      setImgurl(response.data.imgeUrl);
+
+
+      console.log(response.data.data);
+      console.log(response.data.imgeUrl);
+      // setImgurl(`${axiosIns}`)
+      // console.log(`${axiosIns}/uploads/users`)
+      // console.log(response.data.data)
+      // setImg(response.data.data[0].image)
+      // console.log(`${imgurl}/${response.data.data[0].image}`);
+      // setImgurl(`${axiosIns}/uploads/users`)
+
     } catch (e) {
       // setError(()=>e.response.data.messagr)
       console.log(e, 'error');
     }
   }
-  useEffect(() => {
-    getusers();
-  }, [])
-  console.log(usersData)
 
-  const users = usersData.length > 0 && usersData.map(function(user,index) {
 
-return(
-  <tr key={index}>
-  <td >{user.firstname +' '+ user.lastname}</td>
-  <td>{user.email}</td>
-  <td>{user.role}</td>
-  <td style={{borderRadius: 50}}><img src={user.image} width={50} alt="img"   /></td>
-  <td>
-    <button style={{ border: 'none', borderRadius: 50 }} >
+ 
 
-      <Link to='updateuser' className="nav-link">
-        <span className="ms-1 d-none d-sm-inline text-success"><RxUpdate /></span>
-      </Link>
-    </button>
-    {/* <button  style={{ border: 'none', borderRadius: 50 }} >
+  const showData = usersData.length > 0 && usersData.map(function (user, index) {
+    return (
+        <tr key={index}>
+          <td width={100}><img src={`${imgurl}/${user.image}`} width={100} style={{ borderRadius: 50, padding: '12px' }} alt='' /></td>
+          <td >{user.firstname + ' ' + user.lastname}</td>
+          <td>{user.email}</td>
+          <td>{user.role}</td>
+          <td className='d-flex'>
+            <Link to={`UpdateUser/${user._id}`} className="nav-link">
+              <span className="ms-1 d-none d-sm-inline text-success"><RxUpdate /></span>
+            </Link>
+            <button style={{ border: 'none', borderRadius: 50 }} type='button' data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <span className="ms-1 d-none d-sm-inline text-danger" ><AiOutlineDelete /></span>
+            </button>
+          </td>
+        {/* Modal */}
+        <Alert id={user._id} />
+        </tr> )
 
-        <Link to='showuser' className="nav-link ">   
-          <span className="ms-1 d-none d-sm-inline text-warning "><BiShow /></span>
-        </Link>
-      </button> */}
-    <button style={{ border: 'none', borderRadius: 50 }} type='button' data-target="#exampleModal" data-toggle="modal">
-      <span className="ms-1 d-none d-sm-inline text-danger" ><AiOutlineDelete /></span>
-    </button>
-  </td>
-</tr>
-)
   })
+
+
+
+
+
+
+
+
+
   return (
 
     <>
@@ -78,20 +101,24 @@ return(
             </h5>
           </div>
         </div>
-        <table className="table table-striped ">
+        <table className="table table-striped p-5 ">
           <thead>
             <tr>
+              <th scope="col">Image</th>
               <th scope="col">Full Name</th>
               <th scope="col">Email</th>
               <th scope="col">Role</th>
-              <th scope="col">image</th>
               <th scope="col">Btn</th>
             </tr>
           </thead>
           <tbody >
-            {users}
+            {showData}
           </tbody>
         </table>
+        <div>
+        </div>
+
+
       </section>
 
     </>

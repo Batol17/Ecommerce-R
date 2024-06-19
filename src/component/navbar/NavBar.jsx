@@ -1,6 +1,7 @@
 
 import { Link } from "react-router-dom";
-
+const role=localStorage.getItem('role')
+const isDisplay= (role=='admin')? 'd-block' : 'd-none' ;
 
 export default function Navbar() {
    return (
@@ -22,8 +23,8 @@ export default function Navbar() {
         <li  className="nav-item " aria-expanded='false'>
           <Link  to='signup'className="nav-link text-white" ><span>signup</span></Link>
         </li> 
-        <li  className="nav-item show">
-          <Link  to='dashboard'className="nav-link text-white"><span>Dashboard </span></Link>
+        <li  className={`nav-item show ${isDisplay}`}>
+          <Link  to='dashboard'className="nav-link text-white" ><span>Dashboard </span></Link>
         </li>     
        
       </ul>
